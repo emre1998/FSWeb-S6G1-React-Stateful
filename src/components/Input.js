@@ -32,35 +32,37 @@ ADIM 6:
   Inputun başarılı bir şekilde resetlemesi için değerini state'ten almalıdır!
   <input /> öğesine şu şekilde fazladan bir prop eklememiz gerekiyor: value={inputDeğeri}
 */
-
-import React from 'react'; /* ADIM 0 */
+import React, { useState } from 'react'; /* ADIM 0 */
 
 export default function Input() {
-  /* ADIM 1 */
+  const [inputDeğeri, setInputDeğeri] = useState('');
+/* ADIM 1 */
 	
   const inputuDeğiştir = evt => {
     // When the input changes, its whole value can be found inside the event object.
     // Log out the synthetic event object 'evt' and see for yourself.
     const { value } = evt.target;
+    setInputDeğeri(value);
 	
     /* ADIM 4 */
   };
   const reset = () => {
     /* ADIM 5 */
+    setInputDeğeri('');
   };
 
   const stil = {
     fontSize: '1.5em',
     marginBottom: '0.3em',
-    color: 'crimson', /* ADIM 2 */
+    color: inputDeğeri.length>10 ? 'crimson':'blue' /* ADIM 2 */
   };
 
   return (
     <div className='widget-input container'>
       <h2>Input</h2>
-      <div id='output' style={stil}></div> {/* ADIM 3 */}
+      <div id='output' style={stil}>{inputDeğeri.toUpperCase()}</div> {/* ADIM 3 */}
       <div>
-		<input id='input' type='text' onChange={inputuDeğiştir} /> {/* ADIM 6 */}
+		<input id='input' type='text' value ={inputDeğeri}onChange={inputuDeğiştir} /> {/* ADIM 6 */}
         <button id='resetInput' onClick={reset}>Reset</button>
       </div>
     </div>
